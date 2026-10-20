@@ -19,7 +19,7 @@ import { auth, db } from './firebase'
 import type { Member } from './db'
 
 /** Must match BOOTSTRAP_ADMINS in firestore.rules. */
-export const BOOTSTRAP_ADMINS = ['partnerscampus@eafit.edu.co', 'jasalcedoy@eafit.edu.co', 'jandres.salcedoy@gmail.com']
+export const BOOTSTRAP_ADMINS = ['partnerscampus@eafit.edu.co', 'jasalcedoy@eafit.edu.co', 'jandres.salcedoy@gmail.com', 'antonia.palacior@gmail.com']
 
 type Ctx = {
   user: User | null

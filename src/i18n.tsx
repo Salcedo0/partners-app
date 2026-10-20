@@ -13,11 +13,11 @@ const dict = {
   'nav.login': { es: 'Entrar', en: 'Sign in' },
   'nav.logout': { es: 'Salir', en: 'Sign out' },
 
-  'hero.kicker': { es: 'Partners Campus EAFIT · Gestión Humana', en: 'Partners Campus EAFIT · Human Management' },
+  'hero.kicker': { es: 'Partners Campus EAFIT · Comité de Gestión Humana', en: 'Partners Campus EAFIT · Human Management Committee' },
   'hero.title': { es: 'Conectar. Servir. Cambiar vidas.', en: 'Connect. Serve. Change lives.' },
   'hero.sub': {
-    es: 'El espacio de los miembros de Partners: tus puntos, el ranking del semestre, las guías de GH y juegos para romper el hielo.',
-    en: 'The members’ space at Partners: your points, the semester ranking, GH guides and ice-breaker games.',
+    es: 'El comité que cuida a las personas detrás de Partners: seguimos la permanencia, organizamos los Partners for Partners y escuchamos el feedback de cada evento.',
+    en: 'The committee that looks after the people behind Partners: we track permanence, run Partners for Partners and listen to the feedback from every event.',
   },
   'hero.cta': { es: 'Ver mi perfil', en: 'See my profile' },
   'hero.cta2': { es: 'Ver ranking', en: 'See ranking' },

@@ -4,7 +4,7 @@ service cloud.firestore {
 
     // Must match BOOTSTRAP_ADMINS in src/auth.tsx.
     function bootstrapAdmins() {
-      return ['partnerscampus@eafit.edu.co', 'jasalcedoy@eafit.edu.co', 'jandres.salcedoy@gmail.com'];
+      return ['partnerscampus@eafit.edu.co', 'jasalcedoy@eafit.edu.co', 'jandres.salcedoy@gmail.com', 'antonia.palacior@gmail.com'];
     }
     function signedIn() { return request.auth != null; }
     function email() { return request.auth.token.email.lower(); }

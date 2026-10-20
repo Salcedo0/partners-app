@@ -28,7 +28,7 @@ export default function Layout() {
         <div className="wrap nav-in">
           <Link to="/" className="brand">
             <img src="/logo.png" alt="" />
-            <span><b>Partners</b>Campus</span>
+            <span><b>Partners</b>Campus · GH</span>
           </Link>
           <nav className="nav-links">
             {links.slice(0, 4).map((l) => (

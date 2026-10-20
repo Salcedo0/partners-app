@@ -41,9 +41,9 @@ export default function Home() {
             <span className="kicker">{t('hero.kicker')}</span>
             <h1>
               {es ? (
-                <>Conectar. Servir. <em>Cambiar vidas.</em></>
+                <>Gestión Humana: <em>el corazón de Partners.</em></>
               ) : (
-                <>Connect. Serve. <em>Change lives.</em></>
+                <>Human Management: <em>the heart of Partners.</em></>
               )}
             </h1>
             <p>{t('hero.sub')}</p>
