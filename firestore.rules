@@ -1,0 +1,97 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Must match BOOTSTRAP_ADMINS in src/auth.tsx.
+    function bootstrapAdmins() {
+      return ['partnerscampus@eafit.edu.co', 'jasalcedoy@eafit.edu.co', 'jandres.salcedoy@gmail.com'];
+    }
+    function signedIn() { return request.auth != null; }
+    function email() { return request.auth.token.email.lower(); }
+    function isAdmin() {
+      return signedIn() && request.auth.token.email != null && request.auth.token.email_verified == true && (
+        email() in bootstrapAdmins() ||
+        (exists(/databases/$(database)/documents/config/roles) &&
+         email() in get(/databases/$(database)/documents/config/roles).data.admins)
+      );
+    }
+    function onlyChanges(fields) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(fields);
+    }
+
+    // GH admins list.
+    match /config/roles {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // Members: everyone signed in sees the ranking; points only move through admins.
+    match /members/{uid} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.points == 0 && request.resource.data.bonus == 0;
+      allow update: if (signedIn() && request.auth.uid == uid && onlyChanges(['name', 'committee', 'photo']))
+        || (isAdmin() && onlyChanges(['points', 'bonus', 'committee', 'name']));
+      allow delete: if isAdmin();
+    }
+
+    // Points log: members read their own, only GH writes.
+    match /transactions/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+      allow create: if isAdmin() && request.resource.data.by == request.auth.uid;
+      allow update, delete: if isAdmin();
+    }
+
+    // Preset activities for the scanner.
+    match /activities/{id} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // Meme templates: only GH uploads and approves.
+    match /memeTemplates/{id} {
+      allow read: if isAdmin() || (signedIn() && resource.data.approved == true);
+      allow write: if isAdmin();
+    }
+
+    // Snake personal bests.
+    match /snake/{uid} {
+      allow read: if signedIn();
+      allow write: if signedIn() && request.auth.uid == uid
+        && request.resource.data.best is int && request.resource.data.best < 2000;
+    }
+
+    // Live game rooms.
+    match /rooms/{code} {
+      function room() { return get(/databases/$(database)/documents/rooms/$(code)).data; }
+      function isHost() { return signedIn() && room().host == request.auth.uid; }
+
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.host == request.auth.uid;
+      allow update, delete: if signedIn() && resource.data.host == request.auth.uid;
+
+      match /players/{uid} {
+        allow read: if signedIn();
+        allow create, update: if signedIn() && (request.auth.uid == uid || isHost());
+        allow delete: if signedIn() && (request.auth.uid == uid || isHost());
+      }
+      // Meme captions, one per player per round (id = round_uid).
+      match /subs/{id} {
+        allow read: if signedIn();
+        allow write: if signedIn() && (request.resource.data.uid == request.auth.uid || isHost());
+        allow delete: if isHost();
+      }
+      // Votes (id = round_uid).
+      match /votes/{id} {
+        allow read: if signedIn();
+        allow write: if signedIn() && request.resource.data.uid == request.auth.uid;
+        allow delete: if isHost();
+      }
+      // Impostor secrets: each player only reads their own card.
+      match /secrets/{uid} {
+        allow read: if signedIn() && (request.auth.uid == uid || isHost());
+        allow write: if isHost();
+      }
+    }
+  }
+}
