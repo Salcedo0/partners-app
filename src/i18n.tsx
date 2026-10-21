@@ -16,13 +16,13 @@ const dict = {
   'hero.kicker': { es: 'Partners Campus EAFIT · Comité de Gestión Humana', en: 'Partners Campus EAFIT · Human Management Committee' },
   'hero.title': { es: 'Conectar. Servir. Cambiar vidas.', en: 'Connect. Serve. Change lives.' },
   'hero.sub': {
-    es: 'El comité que cuida a las personas detrás de Partners: seguimos la permanencia, organizamos los Partners for Partners y escuchamos el feedback de cada evento.',
-    en: 'The committee that looks after the people behind Partners: we track permanence, run Partners for Partners and listen to the feedback from every event.',
+    es: 'El comité que cuida a las personas detrás de Partners: acompañamos a cada miembro, organizamos los Partners for Partners y escuchamos el feedback de cada evento.',
+    en: 'The committee that looks after the people behind Partners: we support every member, run Partners for Partners and listen to the feedback from every event.',
   },
   'hero.cta': { es: 'Ver mi perfil', en: 'See my profile' },
   'hero.cta2': { es: 'Ver ranking', en: 'See ranking' },
 
-  'home.pillars': { es: 'Nuestros pilares', en: 'Our pillars' },
+  'home.pillars': { es: 'Comité de Gestión Humana', en: 'Human Management Committee' },
   'home.about': { es: 'Quiénes somos', en: 'Who we are' },
   'home.committees': { es: 'Comités', en: 'Committees' },
   'home.events': { es: 'Eventos que nos definen', en: 'Events that define us' },
@@ -77,6 +77,8 @@ const dict = {
 
   'admin.scan': { es: 'Escanear', en: 'Scan' },
   'admin.members': { es: 'Miembros', en: 'Members' },
+  'admin.events': { es: 'Eventos', en: 'Events' },
+  'admin.honorarios': { es: 'Honorarios', en: 'Honoraries' },
   'admin.activities': { es: 'Actividades', en: 'Activities' },
   'admin.memes': { es: 'Memes', en: 'Memes' },
   'admin.admins': { es: 'Admins', en: 'Admins' },

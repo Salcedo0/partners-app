@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BIAS_QUIZ, GUIDES } from '../content'
+import { BIAS_QUIZ, GUIDES, TEXTS } from '../content'
 import { useI18n } from '../i18n'
 
 export default function Guides() {
@@ -11,12 +11,13 @@ export default function Guides() {
   return (
     <div className="wrap page">
       <div className="page-head">
-        <span className="kicker">{es ? 'Guías de Gestión Humana' : 'Human Management guides'}</span>
+        <span className="kicker">Assessment</span>
         <h1>{es ? '¿Cuál es tu rol en la jornada?' : 'What’s your role on the day?'}</h1>
+        <p className="muted" style={{ maxWidth: 760 }}>{L(TEXTS.assessment)}</p>
         <p className="muted">
           {es
-            ? 'Elige tu rol y repasa lo esencial antes de la actividad de selección por bases.'
-            : 'Pick your role and review the essentials before the station-based selection activity.'}
+            ? 'Elige tu rol en la jornada y repasa lo esencial.'
+            : 'Pick your role for the day and review the essentials.'}
         </p>
       </div>
 

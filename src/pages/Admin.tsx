@@ -12,6 +12,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from 'firebase/firestore'
 import { BOOTSTRAP_ADMINS, useAuth } from '../auth'
 import { committeeName } from '../content'
@@ -21,8 +22,11 @@ import { useLive, useRanking } from '../hooks'
 import { useI18n } from '../i18n'
 import { Avatar, Gate, useToast } from '../ui'
 import MemeAdmin from './MemeAdmin'
+import AdminEvents from './AdminEvents'
+import AdminHonorarios from './AdminHonorarios'
+import { useEvents } from '../gh'
 
-type Tab = 'scan' | 'members' | 'activities' | 'memes' | 'admins'
+type Tab = 'scan' | 'events' | 'honorarios' | 'members' | 'activities' | 'memes' | 'admins'
 
 export default function Admin() {
   return (
@@ -46,7 +50,7 @@ function AdminInner() {
         <h1>{t('nav.admin')}</h1>
       </div>
       <div className="tabs">
-        {(['scan', 'members', 'activities', 'memes', 'admins'] as Tab[]).map((k) => (
+        {(['scan', 'events', 'honorarios', 'members', 'activities', 'memes', 'admins'] as Tab[]).map((k) => (
           <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>
             {t(`admin.${k}` as const)}
           </button>
@@ -54,6 +58,8 @@ function AdminInner() {
       </div>
       {tab === 'scan' && <Scan members={members || []} activities={activities || []} toast={toast.show} />}
       {tab === 'members' && <Members members={members} toast={toast.show} />}
+      {tab === 'events' && <AdminEvents toast={toast.show} />}
+      {tab === 'honorarios' && <AdminHonorarios toast={toast.show} />}
       {tab === 'activities' && <Activities activities={activities} />}
       {tab === 'memes' && <MemeAdmin toast={toast.show} />}
       {tab === 'admins' && <Admins toast={toast.show} />}
@@ -80,7 +86,9 @@ function Scan({ members, activities, toast }: { members: Member[]; activities: A
 
   const membersRef = useRef(members)
   membersRef.current = members
-  const activity = activities.find((a) => a.id === activityId)
+  const events = useEvents(true) || []
+  const ev = activityId.startsWith('ev:') ? events.find((e) => 'ev:' + e.id === activityId) : undefined
+  const activity = ev ? { id: ev.id, name: ev.name, points: ev.points } : activities.find((a) => a.id === activityId)
   const target = members.find((m) => m.id === scannedUid)
 
   const reason = activity ? activity.name : custom.reason.trim()
@@ -96,6 +104,8 @@ function Scan({ members, activities, toast }: { members: Member[]; activities: A
     setBusy(true)
     try {
       await awardPoints({ member: m, points, kind: 'activity', reason, byUid: user!.uid, byName: me?.name || 'GH' })
+      // Record attendance on the event.
+      if (ev) await updateDoc(doc(db, 'events', ev.id), { attendees: arrayUnion(m.id) })
       awarded.current.add(key)
       toast(`+${points} → ${m.name}`)
       setScannedUid(null)
@@ -164,6 +174,9 @@ function Scan({ members, activities, toast }: { members: Member[]; activities: A
           <b>{es ? '1. ¿Por qué actividad?' : '1. Which activity?'}</b>
           <select className="input" value={activityId} onChange={(e) => setActivityId(e.target.value)}>
             <option value="">{es ? 'Otra (escribir abajo)' : 'Other (type below)'}</option>
+            {events.map((e) => (
+              <option key={e.id} value={'ev:' + e.id}>📅 {e.name} · {e.points} pts</option>
+            ))}
             {activities.map((a) => (
               <option key={a.id} value={a.id}>{a.name} · {a.points} pts</option>
             ))}

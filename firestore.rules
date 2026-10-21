@@ -42,6 +42,33 @@ service cloud.firestore {
       allow update, delete: if isAdmin();
     }
 
+    // Other settings (e.g. permanence threshold).
+    match /config/{docId} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+    }
+
+    // Committee events; attendance and feedback are written only by GH.
+    match /events/{id} {
+      allow read: if signedIn();
+      allow write: if isAdmin();
+      match /feedback/{fid} {
+        allow read: if signedIn();
+        allow write: if isAdmin();
+      }
+    }
+
+    // Honoraries are public; only GH edits them.
+    match /honorarios/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Feedback history across all events.
+    match /{path=**}/feedback/{fid} {
+      allow read: if signedIn();
+    }
+
     // Preset activities for the scanner.
     match /activities/{id} {
       allow read: if signedIn();

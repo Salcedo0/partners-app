@@ -21,8 +21,8 @@ export const COMMITTEES: { id: string; name: Bi; desc: Bi }[] = [
     id: 'social',
     name: { es: 'Comité Social', en: 'Social Committee' },
     desc: {
-      es: 'Voluntariado que acerca a niños y niñas al inglés y a habilidades para la vida, con actividades llenas de alegría.',
-      en: 'Volunteering that brings children closer to English and life skills, through joyful activities.',
+      es: 'Somos el comité de voluntariado de Partners. A través de iniciativas como The Kids Project y diferentes experiencias sociales, acompañamos a niños de distintas fundaciones durante el año, compartiendo aprendizajes, experiencias y momentos que dejan huella.',
+      en: 'We are Partners’ volunteering committee. Through initiatives like The Kids Project and other social experiences, we walk alongside children from different foundations all year, sharing lessons, experiences and moments that leave a mark.',
     },
   },
   {
@@ -64,26 +64,26 @@ export const committeeName = (id: string | undefined, lang: 'es' | 'en') =>
 
 export const PILLARS: { title: Bi; text: Bi; color: string }[] = [
   {
-    title: { es: 'Conectar', en: 'Connect' },
+    title: { es: 'Acompañamiento', en: 'Support' },
     text: {
-      es: 'Tejemos lazos entre estudiantes locales e internacionales y con los capítulos de Partners en todo el continente.',
-      en: 'We build bonds between local and international students and with Partners chapters across the Americas.',
+      es: 'Estamos pendientes de cada miembro para que nadie se quede atrás.',
+      en: 'We look out for every member so nobody falls behind.',
     },
     color: 'var(--blue)',
   },
   {
-    title: { es: 'Servir', en: 'Serve' },
+    title: { es: 'Partners for Partners', en: 'Partners for Partners' },
     text: {
-      es: 'Ponemos tiempo y ganas al servicio de comunidades y fundaciones a través del voluntariado.',
-      en: 'We give our time and energy to communities and foundations through volunteering.',
+      es: 'Integraciones y rompehielos para que el grupo se conozca y se cuide.',
+      en: 'Socials and ice breakers so the group gets to know and care for each other.',
     },
     color: 'var(--salmon)',
   },
   {
-    title: { es: 'Cambiar vidas', en: 'Change lives' },
+    title: { es: 'Feedback', en: 'Feedback' },
     text: {
-      es: 'Formamos líderes que dejan huella dentro y fuera de Partners.',
-      en: 'We grow leaders who leave a mark inside and outside Partners.',
+      es: 'Escuchamos qué funcionó en cada evento y qué podemos mejorar.',
+      en: 'We listen to what worked at each event and what we can improve.',
     },
     color: 'var(--red)',
   },
@@ -135,14 +135,6 @@ export const EVENTS: { name: string; photo: string; text: Bi }[] = [
     text: {
       es: 'Amistades que cruzan fronteras con los estudiantes de intercambio.',
       en: 'Friendships across borders with exchange students.',
-    },
-  },
-  {
-    name: 'Día Partners',
-    photo: '/photos/perritos.jpg',
-    text: {
-      es: 'Un día para mostrarle al campus quiénes somos (con perritos incluidos).',
-      en: 'A day to show campus who we are (dogs included).',
     },
   },
 ]
@@ -397,5 +389,50 @@ export const BIAS_QUIZ: { text: Bi; evidence: boolean }[] = [
   {
     text: { es: '“Habló poco, así que no aportó.”', en: '“Barely spoke, so they didn’t contribute.”' },
     evidence: false,
+  },
+]
+
+/* ---------- Texts from "Textos portal web GH" ---------- */
+
+export const TEXTS: Record<'feedback' | 'assessment' | 'committees' | 'honorarios' | 'anuarios', Bi> = {
+  feedback: {
+    es: 'Un espacio para recopilar y consultar los feedbacks de eventos anteriores de forma organizada y accesible. Una herramienta para aprender de experiencias pasadas, encontrar nuevas ideas y ayudar a los próximos directores a crear eventos cada vez mejores.',
+    en: 'A place to collect and browse feedback from past events in an organized, accessible way. A tool to learn from past experiences, find new ideas and help future directors build ever better events.',
+  },
+  assessment: {
+    es: 'El Assessment es el proceso de selección en el que conocemos a quienes aspiran a convertirse en nuevos miembros de Partners. A través de diferentes bases y actividades, buscamos identificar sus habilidades, actitudes y afinidad con el grupo. Se realiza un domingo, según el calendario establecido.',
+    en: 'The Assessment is the selection process where we meet those who want to become new Partners members. Through different stations and activities, we look for their skills, attitudes and fit with the group. It takes place on a Sunday, according to the set calendar.',
+  },
+  committees: {
+    es: 'Conoce cómo funciona Partners desde cada uno de sus comités. Explora sus objetivos, descubre los eventos que hacen posible nuestra experiencia y el feedback de cada uno.',
+    en: 'See how Partners works through each of its committees. Explore their goals, discover the events behind our experience and the feedback on each one.',
+  },
+  honorarios: {
+    es: 'Los honorarios son miembros que, gracias a su trayectoria, compromiso y liderazgo, han alcanzado un reconocimiento especial dentro de Partners. Para llegar a esta categoría, se requiere un recorrido mínimo de tres años en el grupo y haber asumido cargos de liderazgo, entre otros criterios. Son personas que representan la historia, los aprendizajes y el legado de Partners.',
+    en: 'Honoraries are members who, through their path, commitment and leadership, have earned special recognition within Partners. Reaching this category takes at least three years in the group and having held leadership roles, among other criteria. They embody Partners’ history, lessons and legacy.',
+  },
+  anuarios: {
+    es: 'Los anuarios reúnen los momentos, las personas y los logros que marcaron cada año en Partners. Son una forma de celebrar nuestra identidad, recordar lo que vivimos y reconocer a quienes hicieron parte de la historia. Un recuerdo que permanece en el tiempo y al que siempre podremos volver.',
+    en: 'Yearbooks gather the moments, people and achievements that marked each year at Partners. They celebrate our identity, help us remember what we lived and recognize those who were part of the story. A memory that lasts and that we can always come back to.',
+  },
+}
+
+/** "Camino a ser honorario" */
+export const ROADMAP: { title: Bi; text: Bi }[] = [
+  {
+    title: { es: 'Miembro durante mínimo 3 años', en: 'Member for at least 3 years' },
+    text: { es: 'Excluyendo periodos de licencia, incluyendo los de práctica.', en: 'Excluding leave periods, including internship periods.' },
+  },
+  {
+    title: { es: 'Cargo directivo', en: 'Leadership role' },
+    text: { es: 'Junta directiva o mesa directiva de HONO.', en: 'Board of directors or HONO board.' },
+  },
+  {
+    title: { es: 'Dirigir al menos 5 eventos', en: 'Lead at least 5 events' },
+    text: { es: 'Como salidas TKP, Proyecto Especial, Premios, etc.', en: 'Such as TKP outings, Special Project, Awards, etc.' },
+  },
+  {
+    title: { es: 'Cargo honorífico', en: 'Honorary role' },
+    text: { es: 'Dirección de macroevento o Buddy Program.', en: 'Leading a macro event or the Buddy Program.' },
   },
 ]

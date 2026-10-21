@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../auth'
-import { ABOUT, COMMITTEES, EVENTS, GALLERY, MISSION, PILLARS, VISION } from '../content'
+import { ABOUT, EVENTS, GALLERY, MISSION, PILLARS, VISION } from '../content'
+import { Link as RLink } from 'react-router-dom'
+import { Calendar, CommitteesAccordion, FeedbackHistory, Honoraries, Roadmap } from '../gh'
+import { TEXTS } from '../content'
 import { useI18n } from '../i18n'
 import { Footer } from '../Layout'
 
@@ -59,7 +62,7 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head">
             <span className="kicker">{t('home.pillars')}</span>
-            <h2>{es ? 'Lo que nos mueve' : 'What drives us'}</h2>
+            <h2>{es ? 'Lo que hace GH' : 'What GH does'}</h2>
           </div>
           <div className="pillars">
             {PILLARS.map((p, i) => (
@@ -71,24 +74,6 @@ export default function Home() {
                 </div>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="wrap about">
-          <div>
-            <span className="kicker">{t('home.about')}</span>
-            <h2 style={{ margin: '10px 0 16px' }}>{es ? 'Una red que cruza fronteras' : 'A network across borders'}</h2>
-            <p className="muted">{L(ABOUT)}</p>
-            <div className="mv">
-              <div><b>{t('home.mission')}</b><p className="muted">{L(MISSION)}</p></div>
-              <div><b>{t('home.vision')}</b><p className="muted">{L(VISION)}</p></div>
-            </div>
-          </div>
-          <div className="about-photos">
-            <img src="/photos/social-ninos.jpg" alt="" loading="lazy" />
-            <img src="/photos/intensamente.jpg" alt="" loading="lazy" />
           </div>
         </div>
       </section>
@@ -117,16 +102,68 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head">
             <span className="kicker">{t('home.committees')}</span>
-            <h2>{es ? 'Siete comités, un solo equipo' : 'Seven committees, one team'}</h2>
+            <h2>{es ? 'Cómo funciona Partners' : 'How Partners works'}</h2>
+            <p className="muted">{L(TEXTS.committees)}</p>
           </div>
-          <div className="committees">
-            {COMMITTEES.map((c) => (
-              <article key={c.id} className={'committee' + (c.id === 'gh' ? ' gh' : '')}>
-                <h4>{L(c.name)}</h4>
-                <p>{L(c.desc)}</p>
-              </article>
-            ))}
+          <CommitteesAccordion />
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} id="feedback">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">{es ? 'Histórico de feedbacks' : 'Feedback history'}</span>
+            <h2>{es ? 'Aprender de cada evento' : 'Learning from every event'}</h2>
+            <p className="muted">{L(TEXTS.feedback)}</p>
           </div>
+          <FeedbackHistory />
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} id="assessment">
+        <div className="wrap">
+          <div className="assess">
+            <div className="stack">
+              <span className="kicker">Assessment</span>
+              <h2>{es ? 'Así llegan los nuevos Partners' : 'How new Partners join'}</h2>
+              <p>{L(TEXTS.assessment)}</p>
+              <RLink className="btn white" to="/guias" style={{ justifySelf: 'start' }}>
+                {es ? 'Ver las guías del Assessment' : 'See the Assessment guides'}
+              </RLink>
+            </div>
+            <img src="/photos/jardin.jpg" alt="" loading="lazy" />
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">{es ? 'Calendario Partners' : 'Partners calendar'}</span>
+            <h2>{es ? '¿Qué viene?' : 'What’s coming up?'}</h2>
+          </div>
+          <Calendar />
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} id="honorarios">
+        <div className="wrap">
+          <details className="hono-card" open>
+            <summary>
+              <img src="/photos/noche-amigos.jpg" alt="" loading="lazy" />
+              <span className="hono-chev" aria-hidden="true">⌄</span>
+            </summary>
+            <div className="hono-body">
+              <div className="hono-head">
+                <h2>{es ? 'HONORARIOS' : 'HONORARIES'}</h2>
+                <p className="muted">{L(TEXTS.honorarios)}</p>
+              </div>
+              <h3 className="hono-sub">{es ? 'Camino a ser honorario' : 'Path to honorary'}</h3>
+              <Roadmap />
+              <h3 className="hono-sub">{es ? 'Honorarios actuales' : 'Current honoraries'}</h3>
+              <Honoraries />
+            </div>
+          </details>
         </div>
       </section>
 
@@ -146,6 +183,35 @@ export default function Home() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }} id="anuarios">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="kicker">{es ? 'Anuarios' : 'Yearbooks'}</span>
+            <h2>{es ? 'Lo que marcó cada año' : 'What defined each year'}</h2>
+            <p className="muted">{L(TEXTS.anuarios)}</p>
+          </div>
+          <span className="chip">{es ? 'Próximamente' : 'Coming soon'}</span>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="wrap about">
+          <div>
+            <span className="kicker">{t('home.about')}</span>
+            <h2 style={{ margin: '10px 0 16px' }}>{es ? 'Una red que cruza fronteras' : 'A network across borders'}</h2>
+            <p className="muted">{L(ABOUT)}</p>
+            <div className="mv">
+              <div><b>{t('home.mission')}</b><p className="muted">{L(MISSION)}</p></div>
+              <div><b>{t('home.vision')}</b><p className="muted">{L(VISION)}</p></div>
+            </div>
+          </div>
+          <div className="about-photos">
+            <img src="/photos/social-ninos.jpg" alt="" loading="lazy" />
+            <img src="/photos/intensamente.jpg" alt="" loading="lazy" />
           </div>
         </div>
       </section>
